@@ -17,10 +17,9 @@ jobs:
         with:
           flutter-version: '3.16.5'
       - name: Change to Flutter project directory
-        run: cd F:\duotrans
+        run: cd jh-ikas.github.io
       - name: Build and Deploy
         run: |
-          cd F:\duotrans
           flutter pub get
           flutter build web --release --dart-define=API_KEY=${{ secrets.API_KEY }}
         env:
