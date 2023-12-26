@@ -19,10 +19,12 @@ jobs:
         with:
           flutter-version: '3.16.5'
       
-      - name: Get dependencies and Build
-        run: |
-          flutter pub get
-          flutter build web --release --dart-define=API_KEY=${{ secrets.API_KEY }}
+      - name: Get dependencies
+        run: flutter pub get
+        working-directory: ./web
+
+      - name: Build
+        run: flutter build web --release --dart-define=API_KEY=${{ secrets.API_KEY }}
         env:
           API_KEY: ${{ secrets.API_KEY }}
         working-directory: ./web
@@ -38,3 +40,4 @@ jobs:
           git add .
           git commit -m 'Deploy to GitHub Pages'
           git push origin gh-pages
+        working-directory: ./web
