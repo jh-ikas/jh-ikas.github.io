@@ -30,7 +30,9 @@ jobs:
       run: echo $GITHUB_WORKSPACE
       
     - name: Get Flutter dependencies
-      run: flutter pub get
+      run: |
+        echo "작업 경로: ${{ github.workspace }}"
+        flutter pub get
       working-directory: ./web  # ensure this points to your flutter project directory
 
     - name: Build Flutter web
