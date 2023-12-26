@@ -19,10 +19,10 @@ jobs:
       - name: Get dependencies
         run: |
           flutter pub get
-          working-directory: ./web
           flutter build web --release --dart-define=API_KEY=${{ secrets.API_KEY }}
         env:
           API_KEY: ${{ secrets.API_KEY }}
+        working-directory: ./web
       - name: Deploy to GitHub Pages
         run: |
           git config --global user.name 'jh-ikas'
