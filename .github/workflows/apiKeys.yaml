@@ -24,8 +24,8 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
       - name: Deploy to GitHub Pages
         run: |
-          git config --global user.name 'your-github-username'
-          git config --global user.email 'your-github-email'
+          git config --global user.name 'jh-ikas'
+          git config --global user.email 'atmoh819@gmail.com'
           git fetch --unshallow
           git checkout gh-pages
           git rm -rf .
