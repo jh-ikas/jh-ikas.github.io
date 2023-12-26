@@ -17,7 +17,7 @@ jobs:
         with:
           flutter-version: '3.16.5'
       - name: Change to Flutter project directory
-        run: cd jh-ikas.github.io
+        run: cd web
       - name: Build and Deploy
         run: |
           flutter pub get
@@ -31,7 +31,7 @@ jobs:
           git fetch --unshallow
           git checkout gh-pages
           git rm -rf .
-          cp -r build/web/* .
+          cp -r web/* .
           git add .
           git commit -m 'Deploy to GitHub Pages'
           git push origin gh-pages
