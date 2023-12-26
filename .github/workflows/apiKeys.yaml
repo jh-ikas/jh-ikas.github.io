@@ -3,7 +3,7 @@ name: Flutter Build and Deploy
 on:
   push:
     branches:
-      - main  # or the branch name you want to deploy from
+      - main
 
 jobs:
   build-and-deploy:
@@ -16,30 +16,22 @@ jobs:
     - name: Setup Java environment
       uses: actions/setup-java@v1
       with:
-        java-version: '1.8'  # or the version your project requires
+        java-version: '1.8'
 
     - name: Setup Flutter environment
       uses: subosito/flutter-action@v1
       with:
-        flutter-version: '3.16.5'  # or the version your project requires
-        
-    - name: Print working directory
-      run: pwd
-      
-    - name: Print GitHub workspace
-      run: echo $GITHUB_WORKSPACE
-      
+        flutter-version: '3.16.5'
+
     - name: Get Flutter dependencies
-      run: |
-        echo "작업 경로: ${{ github.workspace }}"
-        flutter pub get
-      working-directory: ./web  # ensure this points to your flutter project directory
+      run: flutter pub get
+      working-directory: . # 현재 GitHub 레포지토리의 루트가 Flutter 프로젝트 루트인 경우
 
     - name: Build Flutter web
       run: flutter build web --release --dart-define=API_KEY=${{ secrets.API_KEY }}
       env:
         API_KEY: ${{ secrets.API_KEY }}
-      working-directory: ./web  # ensure this points to your flutter project directory
+      working-directory: . # 현재 GitHub 레포지토리의 루트가 Flutter 프로젝트 루트인 경우
 
     - name: Deploy to GitHub Pages
       run: |
@@ -52,4 +44,4 @@ jobs:
         git add .
         git commit -m 'Deploy to GitHub Pages'
         git push origin gh-pages
-      working-directory: ./web  # ensure this points to your flutter project directory
+      working-directory: . # 현재 GitHub 레포지토리의 루트가 Flutter 프로젝트 루트인 경우
