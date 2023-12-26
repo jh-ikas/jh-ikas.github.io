@@ -1,47 +1,47 @@
-name: Flutter Build
+name: Flutter Build and Deploy
 
 on:
   push:
     branches:
-      - main
+      - main  # or the branch name you want to deploy from
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
+    - name: Checkout the repository
+      uses: actions/checkout@v2
 
-      - uses: actions/setup-java@v1
-        with:
-          java-version: '1.8'
-      
-      - uses: subosito/flutter-action@v1
-        with:
-          flutter-version: '3.16.5'
-      
-      - name: Get dependencies
-        run: |
-          echo "작업 경로: ${{ github.workspace }}"
-          flutter pub get
-        working-directory: ./web
+    - name: Setup Java environment
+      uses: actions/setup-java@v1
+      with:
+        java-version: '1.8'  # or the version your project requires
 
-      - name: Build
-        run: |
-          echo "작업 경로: ${{ github.workspace }}"
-          flutter build web --release --dart-define=API_KEY=${{ secrets.API_KEY }}
-        env:
-          API_KEY: ${{ secrets.API_KEY }}
-        working-directory: ./web
-      
-      - name: Deploy to GitHub Pages
-        run: |
-          git config --global user.name 'jh-ikas'
-          git config --global user.email 'atmoh819@gmail.com'
-          git fetch --unshallow
-          git checkout gh-pages
-          git rm -rf .
-          cp -r ../build/web/* .
-          git add .
-          git commit -m 'Deploy to GitHub Pages'
-          git push origin gh-pages
-        working-directory: ./web
+    - name: Setup Flutter environment
+      uses: subosito/flutter-action@v1
+      with:
+        flutter-version: '3.16.5'  # or the version your project requires
+
+    - name: Get Flutter dependencies
+      run: flutter pub get
+      working-directory: ./web  # ensure this points to your flutter project directory
+
+    - name: Build Flutter web
+      run: flutter build web --release --dart-define=API_KEY=${{ secrets.API_KEY }}
+      env:
+        API_KEY: ${{ secrets.API_KEY }}
+      working-directory: ./web  # ensure this points to your flutter project directory
+
+    - name: Deploy to GitHub Pages
+      run: |
+        git config --global user.name 'Your Name'
+        git config --global user.email 'your-email@example.com'
+        git fetch --prune
+        git checkout gh-pages
+        git rm -rf .
+        cp -r build/web/* .
+        git add .
+        git commit -m 'Deploy to GitHub Pages'
+        git push origin gh-pages
+      working-directory: ./web  # ensure this points to your flutter project directory
