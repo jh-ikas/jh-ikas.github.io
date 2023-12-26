@@ -16,9 +16,7 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           flutter-version: '3.16.5'
-      - name: Change to Flutter project directory
-        run: cd web
-      - name: Build and Deploy
+      - name: Get dependencies and Build
         run: |
           flutter pub get
           flutter build web --release --dart-define=API_KEY=${{ secrets.API_KEY }}
@@ -30,8 +28,9 @@ jobs:
           git config --global user.email 'atmoh819@gmail.com'
           git fetch --unshallow
           git checkout gh-pages
-          git rm -rf .
-          cp -r web/* .
+          git rm -rf . 
+          cp -r build/web/* . 
           git add .
           git commit -m 'Deploy to GitHub Pages'
           git push origin gh-pages
+
