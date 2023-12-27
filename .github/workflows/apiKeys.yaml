@@ -31,8 +31,8 @@ jobs:
 
     - name: Deploy to GitHub Pages
       run: |
-        git config --global user.name 'Your Name'
-        git config --global user.email 'your-email@example.com'
+        git config --global user.name 'jh-ikas'
+        git config --global user.email 'atmoh819@gmail.com'
         git fetch --prune
         git checkout gh-pages
         git rm -rf .
