@@ -46,3 +46,6 @@ jobs:
         git add .
         git commit -m 'Deploy to GitHub Pages'
         git push origin gh-pages
+      env:
+        GITHUB_TOKEN: ${{ secrets.API_KEY }}
+
