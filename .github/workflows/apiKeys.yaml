@@ -37,6 +37,7 @@ jobs:
         git config --global user.email 'atmoh819@gmail.com'
         git fetch --prune
         git checkout gh-pages
+        git reset --hard
         git rm -rf .
         cp -r build/web/* .
         git add .
