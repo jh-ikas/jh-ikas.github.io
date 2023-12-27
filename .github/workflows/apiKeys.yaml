@@ -23,6 +23,9 @@ jobs:
       with:
         flutter-version: '3.16.5'
 
+    - name: Flutter pub
+      run: flutter pub get
+
     - name: Build Flutter web
       run: flutter build web --release --dart-define=API_KEY=${{ secrets.API_KEY }}
       env:
