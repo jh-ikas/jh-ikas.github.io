@@ -89,7 +89,7 @@ class _TranslationPageState extends State<TranslationPage> {
 
   void _checkServiceAvailability() {
     final currentDate = DateTime.now();
-    final endDate = DateTime(2023, 12, 25, 0, 0, 0); // 종료 날짜 설정
+    final endDate = DateTime(2024, 1, 1, 0, 0, 0); // 종료 날짜 설정
 
     if (currentDate.isAfter(endDate)) {
       if (_isServiceAvailable) {
